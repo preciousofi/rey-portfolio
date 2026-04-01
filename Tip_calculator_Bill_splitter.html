@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tip Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e1e1e, #2c3e50);
+    }
+
+    .container {
+      background: #111;
+      padding: 30px;
+      border-radius: 12px;
+      width: 360px;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      text-align: center;
+      color: cyan;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+    }
+
+    .tip-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tip-buttons button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      background: orange;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      color: black;
+    }
+
+    .tip-buttons button:hover {
+      background: darkorange;
+      transform: scale(1.05);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .action-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: cyan;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      color: black;
+    }
+
+    .action-buttons button:hover {
+      background: #00cccc;
+    }
+
+    .result {
+      background: #222;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .result p {
+      margin: 8px 0;
+      font-size: 18px;
+    }
+
+    .warning {
+      color: #ff4d4d;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>💰 Tip Calculator</h1>
+
+    <input type="number" id="bill" placeholder="Bill amount ($)">
+    <input type="number" id="people" placeholder="Number of people">
+
+    <div class="tip-buttons">
+      <button onclick="setTip(10)">10%</button>
+      <button onclick="setTip(15)">15%</button>
+      <button onclick="setTip(20)">20%</button>
+      <button onclick="setTip(25)">25%</button>
+    </div>
+
+    <input type="number" id="tip" placeholder="Custom Tip %">
+
+    <p class="warning" id="warning">⚠️ Please fill all fields correctly</p>
+
+    <div class="action-buttons">
+      <button onclick="calculateTip()">Calculate</button>
+      <button onclick="resetCalculator()">Reset</button>
+    </div>
+
+    <div class="result" id="result" style="display:none">
+      <p id="tipPerPerson"></p>
+      <p id="totalPerPerson"></p>
+    </div>
+  </div>
+
+  <script>
+    function setTip(percent) {
+      document.getElementById("tip").value = percent;
+    }
+
+    function calculateTip() {
+      const bill = parseFloat(document.getElementById("bill").value);
+      const people = parseInt(document.getElementById("people").value);
+      const tipPercent = parseFloat(document.getElementById("tip").value);
+
+      const warning = document.getElementById("warning");
+      const resultDiv = document.getElementById("result");
+
+      if (isNaN(bill) || isNaN(people) || isNaN(tipPercent) || bill <= 0 || people <= 0) {
+        warning.style.display = "block";
+        resultDiv.style.display = "none";
+        return;
+      }
+
+      warning.style.display = "none";
+
+      const tipAmount = (bill * tipPercent) / 100;
+      const total = bill + tipAmount;
+
+      const tipPerPerson = tipAmount / people;
+      const totalPerPerson = total / people;
+
+      // Currency formatting
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      });
+
+      document.getElementById("tipPerPerson").textContent = `Tip per person: ${formatter.format(tipPerPerson)}`;
+      document.getElementById("totalPerPerson").textContent = `Total per person: ${formatter.format(totalPerPerson)}`;
+
+      resultDiv.style.display = "block";
+    }
+
+    function resetCalculator() {
+      document.getElementById("bill").value = "";
+      document.getElementById("people").value = "";
+      document.getElementById("tip").value = "";
+      document.getElementById("result").style.display = "none";
+      document.getElementById("warning").style.display = "none";
+    }
+  </script>
+</body>
+</html>

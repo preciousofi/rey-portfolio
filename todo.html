@@ -1,0 +1,158 @@
+import { useState, useEffect } from "react";
+
+function App() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("all");
+
+  // Load tasks
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("tasks"));
+    if (saved) setTasks(saved);
+  }, []);
+
+  // Save tasks
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  const addTask = () => {
+    if (!task.trim()) return;
+    setTasks([...tasks, { text: task, done: false, editing: false }]);
+    setTask("");
+  };
+
+  const deleteTask = (index) => {
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
+  const toggleDone = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].done = !newTasks[index].done;
+    setTasks(newTasks);
+  };
+
+  const startEdit = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].editing = true;
+    setTasks(newTasks);
+  };
+
+  const saveEdit = (index) => {
+    const newTasks = [...tasks];
+    newTasks[index].editing = false;
+    setTasks(newTasks);
+  };
+
+  const handleEdit = (index, value) => {
+    const newTasks = [...tasks];
+    newTasks[index].text = value;
+    setTasks(newTasks);
+  };
+
+  // Filter tasks
+  const filteredTasks = tasks.filter(t => {
+    if (filter === "active") return !t.done;
+    if (filter === "completed") return t.done;
+    return true;
+  });
+
+  return (
+    <div style={styles.container}>
+      <h1>Advanced To-Do 📝</h1>
+
+      {/* Input */}
+      <div style={styles.inputBox}>
+        <input
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          placeholder="Enter task..."
+          style={styles.input}
+        />
+        <button onClick={addTask}>Add</button>
+      </div>
+
+      {/* Filter */}
+      <div style={styles.filters}>
+        <button onClick={() => setFilter("all")}>All</button>
+        <button onClick={() => setFilter("active")}>Active</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+      </div>
+
+      {/* Tasks */}
+      <ul style={styles.list}>
+        {filteredTasks.map((t, index) => (
+          <li key={index} style={styles.item}>
+            {t.editing ? (
+              <>
+                <input
+                  value={t.text}
+                  onChange={(e) => handleEdit(index, e.target.value)}
+                />
+                <button onClick={() => saveEdit(index)}>💾</button>
+              </>
+            ) : (
+              <>
+                <span
+                  onClick={() => toggleDone(index)}
+                  style={{
+                    textDecoration: t.done ? "line-through" : "none",
+                    cursor: "pointer",
+                    flex: 1
+                  }}
+                >
+                  {t.text}
+                </span>
+
+                <div>
+                  <button onClick={() => startEdit(index)}>✏️</button>
+                  <button onClick={() => deleteTask(index)}>❌</button>
+                </div>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Styles (clean + responsive)
+const styles = {
+  container: {
+    maxWidth: "400px",
+    margin: "50px auto",
+    padding: "20px",
+    background: "#fff",
+    borderRadius: "10px",
+    boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
+  },
+  inputBox: {
+    display: "flex",
+    gap: "10px"
+  },
+  input: {
+    flex: 1,
+    padding: "10px"
+  },
+  filters: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: "10px"
+  },
+  list: {
+    listStyle: "none",
+    padding: 0,
+    marginTop: "20px"
+  },
+  item: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "10px",
+    background: "#f9f9f9",
+    marginBottom: "10px",
+    borderRadius: "5px"
+  }
+};
+
+export default App;

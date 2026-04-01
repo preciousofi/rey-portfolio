@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scientific Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    background: #f0f2f5;
+  }
+  .calculator {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 350px;
+  }
+  .display {
+    width: 100%;
+    height: 50px;
+    font-size: 1.5rem;
+    text-align: right;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  button {
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+  }
+  button:hover { background: #0056b3; }
+  .function-btn { background: #6c757d; }
+  .function-btn:hover { background: #5a6268; }
+  .equals-btn { background: #28a745; grid-column: span 2; }
+  .equals-btn:hover { background: #218838; }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" class="display" disabled>
+  <div class="buttons">
+    <!-- Row 1 -->
+    <button class="function-btn" onclick="clearDisplay()">C</button>
+    <button class="function-btn" onclick="deleteLast()">←</button>
+    <button class="function-btn" onclick="appendOperator('%')">%</button>
+    <button class="function-btn" onclick="appendOperator('/')">÷</button>
+    <button class="function-btn" onclick="appendOperator('*')">×</button>
+    <!-- Row 2 -->
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button class="function-btn" onclick="appendOperator('-')">−</button>
+    <button class="function-btn" onclick="appendOperator('+')">+</button>
+    <!-- Row 3 -->
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button class="function-btn" onclick="square()">x²</button>
+    <button class="function-btn" onclick="squareRoot()">√</button>
+    <!-- Row 4 -->
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button class="function-btn" onclick="sin()">sin</button>
+    <button class="function-btn" onclick="cos()">cos</button>
+    <!-- Row 5 -->
+    <button onclick="appendNumber('0')">0</button>
+    <button onclick="appendNumber('.')">.</button>
+    <button class="equals-btn" onclick="calculate()">=</button>
+    <button class="function-btn" onclick="tan()">tan</button>
+    <button class="function-btn" onclick="log()">log</button>
+  </div>
+</div>
+
+<script>
+const display = document.getElementById('display');
+
+function appendNumber(num) {
+  display.value += num;
+}
+
+function appendOperator(op) {
+  display.value += op;
+}
+
+function clearDisplay() {
+  display.value = '';
+}
+
+function deleteLast() {
+  display.value = display.value.slice(0, -1);
+}
+
+// Standard calculation
+function calculate() {
+  try {
+    display.value = eval(display.value);
+  } catch(e) {
+    alert('Invalid input!');
+  }
+}
+
+// Scientific functions
+function square() {
+  try { display.value = Math.pow(eval(display.value), 2); } catch(e){ alert('Invalid input'); }
+}
+function squareRoot() {
+  try { display.value = Math.sqrt(eval(display.value)); } catch(e){ alert('Invalid input'); }
+}
+function sin() {
+  try { display.value = Math.sin(eval(display.value)); } catch(e){ alert('Invalid input'); }
+}
+function cos() {
+  try { display.value = Math.cos(eval(display.value)); } catch(e){ alert('Invalid input'); }
+}
+function tan() {
+  try { display.value = Math.tan(eval(display.value)); } catch(e){ alert('Invalid input'); }
+}
+function log() {
+  try { display.value = Math.log10(eval(display.value)); } catch(e){ alert('Invalid input'); }
+}
+
+// Keyboard support
+document.addEventListener('keydown', e => {
+  if(!isNaN(e.key) || e.key === '.') appendNumber(e.key);
+  if(['+', '-', '*', '/', '%'].includes(e.key)) appendOperator(e.key);
+  if(e.key === 'Enter') calculate();
+  if(e.key === 'Backspace') deleteLast();
+  if(e.key.toLowerCase() === 'c') clearDisplay();
+});
+</script>
+
+</body>
+</html>

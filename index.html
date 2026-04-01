@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rey | Full Stack Developer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      background: #0a0a0a;
+      border-bottom: 1px solid #1a1a1a;
+      z-index: 100;
+    }
+
+    nav .logo { font-size: 22px; font-weight: 700; color: #6c63ff; }
+
+    nav ul { list-style: none; display: flex; gap: 30px; }
+    nav ul a { color: #ccc; text-decoration: none; font-size: 15px; }
+    nav ul a:hover { color: #6c63ff; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+      background: linear-gradient(135deg, #0a0a0a 60%, #0d0d2b);
+    }
+
+    .hero-text h1 {
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .hero-text h1 span { color: #6c63ff; }
+
+    .hero-text p {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #aaa;
+      max-width: 550px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons { margin-top: 35px; display: flex; gap: 15px; }
+
+    .btn {
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #6c63ff;
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover { background: #574fd6; }
+
+    .btn-outline {
+      background: transparent;
+      color: #6c63ff;
+      border: 2px solid #6c63ff;
+    }
+
+    .btn-outline:hover { background: #6c63ff; color: white; }
+
+    section { padding: 80px 60px; }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .section-title span { color: #6c63ff; }
+
+    .section-subtitle {
+      color: #aaa;
+      margin-bottom: 50px;
+      font-size: 16px;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-tag {
+      background: #1a1a2e;
+      color: #6c63ff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #6c63ff33;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 30px;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover { border-color: #6c63ff; }
+
+    .project-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+
+    .tag {
+      background: #1a1a2e;
+      color: #6c63ff;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .project-links { display: flex; gap: 10px; }
+
+    .project-links a {
+      color: #6c63ff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .project-links a:hover { text-decoration: underline; }
+
+    .about-content {
+      max-width: 700px;
+      color: #ccc;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .contact-box {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 50px;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .contact-box p { color: #aaa; margin: 15px 0 30px; font-size: 17px; }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #555;
+      border-top: 1px solid #1a1a1a;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Rey.</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Hi, I'm <span>Rey</span>.<br/>Full Stack Developer.</h1>
+    <p>I build fast, clean, and functional web applications from frontend to backend. Self-taught and hungry to build things that matter.</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Hire Me</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-title">About <span>Me</span></div>
+  <div class="section-subtitle">Who I am and what I do</div>
+  <div class="about-content">
+    <p>I'm a self-taught full stack developer with a passion for building real, working products. I started from zero — learning HTML, CSS, and JavaScript — and pushed myself all the way through React, Node.js, Express, and authentication systems.</p>
+    <br/>
+    <p>I don't just write code — I debug, problem-solve, and figure things out. Every project I've built has taught me something new, and I bring that mindset to everything I work on.</p>
+    <br/>
+    <p>I'm currently open to full stack developer roles, freelance projects, and collaborations.</p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-title">Tech <span>Stack</span></div>
+  <div class="section-subtitle">Technologies I work with</div>
+  <div class="skills-grid">
+    <span class="skill-tag">HTML5</span>
+    <span class="skill-tag">CSS3</span>
+    <span class="skill-tag">JavaScript</span>
+    <span class="skill-tag">React</span>
+    <span class="skill-tag">Node.js</span>
+    <span class="skill-tag">Express.js</span>
+    <span class="skill-tag">REST APIs</span>
+    <span class="skill-tag">JWT Auth</span>
+    <span class="skill-tag">Git & GitHub</span>
+    <span class="skill-tag">Netlify</span>
+    <span class="skill-tag">localStorage</span>
+    <span class="skill-tag">Vite</span>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-title">My <span>Projects</span></div>
+  <div class="section-subtitle">Things I've built from scratch</div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <h3>📝 Advanced To-Do App</h3>
+      <p>A fully functional task manager with add, complete, and delete features. Data persists using localStorage so tasks survive page refresh.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">localStorage</span>
+        <span class="tag">CSS</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/preciousofi/my-react-app" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>💬 Quotes Generator</h3>
+      <p>Fetches random quotes from a live REST API and displays them with smooth styling. Click a button to get a new quote instantly.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">REST API</span>
+        <span class="tag">Fetch</span>
+      </div>
+      <div class="project-links">
+        <a href="https://calm-frangipane-b18ed3.netlify.app" target="_blank">Live Demo →</a>
+        <a href="https://github.com/preciousofi/quotes-app" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>💰 Expense Tracker</h3>
+      <p>Track your spending with a clean interface. Add expenses, see the running total, and delete items. Built with React state management.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">useState</span>
+        <span class="tag">CSS</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/preciousofi/expense-tracker" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>📰 Full Stack Blog App</h3>
+      <p>A complete full stack app with user signup, login, JWT authentication, and blog post creation. React frontend connected to a Node.js/Express backend.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">JWT</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/preciousofi" target="_blank">GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-title">Get In <span>Touch</span></div>
+  <div class="section-subtitle">Let's work together</div>
+  <div class="contact-box">
+    <h2>Open to Opportunities</h2>
+    <p>Whether you have a project in mind, a role to fill, or just want to connect — I'd love to hear from you.</p>
+    <a href="mailto:preciousofi1@gmail.com" class="btn btn-primary">Send Me an Email</a>
+  </div>
+</section>
+
+<footer>
+  <p>Built by Rey © 2026 · Full Stack Developer</p>
+</footer>
+
+</body>
+</html>
